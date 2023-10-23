@@ -3,19 +3,17 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  extensions = [vector]
 }
 
-
-model Todo {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  done        Boolean  @default(false)
-  createdAt   DateTime @default(now()) @db.Timestamp(0)
-  updatedAt   DateTime @default(now()) @db.Timestamp(0)
+model item {
+  id        Int                       @id @default(autoincrement())
+  embedding Unsupported("vector(1536)")?
+  document String
 }
